@@ -1,13 +1,13 @@
 # UART Transmitter + Receiver in Verilog
 
 An 8N1 UART transmitter and receiver written in Verilog, verified with a
-self-checking testbench in Icarus Verilog.
+self checking testbench in Icarus Verilog.
 
 ## What this project does
 
-- `uart_tx.v` — UART transmitter implemented as a 4-state FSM
+- `uart_tx.v` — UART transmitter implemented as a 4 state FSM
   (IDLE → START → DATA → STOP), configurable clock frequency and baud rate
-- `uart_rx.v` — UART receiver with a 2-flip-flop input synchronizer
+- `uart_rx.v` — UART receiver with a 2 flip flop input synchronizer
   (to avoid metastability) and mid-bit sampling for timing tolerance
 - `tb_uart.v` — self-checking testbench: loops the transmitter's output
   directly into the receiver's input, sends 5 test bytes (including the
@@ -17,7 +17,7 @@ self-checking testbench in Icarus Verilog.
 ## How to run it
 
 Requires [Icarus Verilog](http://bleyer.org/icarus/) and
-[GTKWave](http://gtkwave.sourceforge.net/) (both free, open-source):
+[GTKWave](http://gtkwave.sourceforge.net/) (both free, open source):
 
 ```bash
 iverilog -o sim.out uart_tx.v uart_rx.v tb_uart.v
@@ -49,9 +49,9 @@ gtkwave uart_tb.vcd
 
 ## Design notes
 
-- 8 data bits, no parity, 1 stop bit (8N1), transmitted LSB-first
-- `CLK_FREQ` and `BAUD_RATE` are module parameters — the bit period is
+- 8 data bits, no parity, 1 stop bit (8N1), transmitted LSB first
+- `CLK_FREQ` and `BAUD_RATE` are module parameters the bit period is
   computed as `CLK_FREQ / BAUD_RATE` clock cycles
-- The receiver double-flops its asynchronous input to protect against
+- The receiver double flops its asynchronous input to protect against
   metastability, and samples each bit at the middle of its period to
-  tolerate small clock-rate mismatches between transmitter and receiver
+  tolerate small clock rate mismatches between transmitter and receiver
